@@ -1,0 +1,15 @@
+{
+  "name": "electron-0000",
+  "version": "1.0.0",
+  "description": "primeira aula",
+  "main": "index.js",
+  "scripts": {
+    "electron": "electron ."
+  },
+  "author": "Jorge",
+  "license": "ISC",
+  "dependencies": {
+    "electron": "^4.1.4",
+    "image-size": "^0.7.3"
+  }
+}

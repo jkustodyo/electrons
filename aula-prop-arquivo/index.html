@@ -1,0 +1,25 @@
+<head>
+</head>
+
+<body>
+    <form>
+        <div>
+            <input type="file" accept="image/*">
+        </div>
+        <button type="submit">Mosyrta dimensões</button>
+    </form>
+    <h1 id="result">...</h1>
+    <script>
+        const electron = require('electron');
+        const { ipcRenderer } = electron;
+        document.querySelector('form').addEventListener('submit', (event) => {
+            //inibir o comportamento padrão do submit
+            event.preventDefault();
+            const { path } = document.querySelector('input').files[0];
+            ipcRenderer.send('obterDimensoes', path);
+        });
+        ipcRenderer.on('dimensoes', (event, dimensions) => {
+            document.querySelector('#result').innerHTML = `Largura=${dimensions.width}  Altura=${dimensions.height}`;
+        });
+    </script>
+</body>

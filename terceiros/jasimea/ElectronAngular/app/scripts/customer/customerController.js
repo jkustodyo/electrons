@@ -1,4 +1,6 @@
 (function () {
+/* teste */
+
     'use strict';
     angular.module('app')
         .controller('customerController', ['customerService', '$q', '$mdDialog', CustomerController]);

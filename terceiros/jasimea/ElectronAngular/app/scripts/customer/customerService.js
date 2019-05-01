@@ -34,6 +34,7 @@
         }
         
         function getCustomerById(id) {
+console.log('getCustomerById('+id+')');
             var deferred = $q.defer();
             var query = "SELECT * FROM customers WHERE customer_id = ?";
             connection.query(query, [id], function (err, rows) {
@@ -44,7 +45,9 @@
         }
         
         function getCustomerByName(name) {
-            var deferred = $q.defer();
+console.log('getCustomerByName('+name+')');
+
+                var deferred = $q.defer();
             var query = "SELECT * FROM customers WHERE name LIKE  '" + name + "%'";
             connection.query(query, [name], function (err, rows) {
                 if (err) {
@@ -81,13 +84,46 @@
         }
         
         function updateCustomer(customer) {
+console.log(dump(customer));
+
             var deferred = $q.defer();
             var query = "UPDATE customers SET name = ? WHERE customer_id = ?";
             connection.query(query, [customer.name, customer.customer_id], function (err, res) {
                 if (err) deferred.reject(err);
                 deferred.resolve(res);
             });
+
+            console.log(query);
+            console.log(deferred);
+
             return deferred.promise;
         }
+
+
+
+        function dump(arr, level) {
+            var dumped_text = "";
+            if (!level) level = 0;
+         
+            var level_padding = "";
+            for (var j = 0; j < level + 1; j++) level_padding += "    ";
+            if (typeof (arr) == "object") {
+                for (var item in arr) {
+                    var value = arr[item];
+                    if (typeof (value) == "object") {
+                        dumped_text += level_padding + "’" + item + "’ …\n";
+                        dumped_text += dump(value, level + 1);
+                    } else {
+                        dumped_text += level_padding + "’" + item + "’ => \"" + value + "\"\n";
+                    }
+                }
+            } else {
+                dumped_text = "===>" + arr + "<===(" + typeof (arr) + ")";
+            }
+            return dumped_text;
+        }
+    
+    
+
     }
 })();
